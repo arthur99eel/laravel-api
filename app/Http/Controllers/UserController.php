@@ -8,8 +8,16 @@ use App\Models\User;
 class UserController extends Controller
 {
     //
-    public function store(Request $request){
-        return User::create($request->all());
+    public function register(Request $request){
+        $validatedData = $request->validate([
+            "name"=>'required|max:55',
+            "email"=>'email|required|unique:users',
+            "password"=> 'required'
+        ]);
+        $validatedData['password'] = bcrypt($request->password);
+        $created_user = User::create($validatedData);
+        $accessToken = $created_user->createToken('authToken')->accessToken;
+        return ["created_user"=>$created_user,'access_token'=>$accessToken];
    }
    
    public function index(){
@@ -30,7 +38,7 @@ class UserController extends Controller
        return User::destroy($id);
    }
 
-   
+
 
 
 
