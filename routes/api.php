@@ -6,6 +6,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPostsController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostCommentsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,5 +26,7 @@ use App\Http\Controllers\LoginController;
 Route::post('/login',[LoginController::class,'login']);
 Route::post('users',[UserController::class,'register']);
 Route::middleware('auth:api')->apiResource('users.posts', UserPostsController::class);
+Route::middleware('auth:api')->apiResource('post.comments', PostCommentsController::class);
 Route::resource('users', UserController::class)->except(['store','create','edit']);
 Route::middleware('auth:api')->apiResource('posts', PostController::class);
+Route::middleware('auth:api')->apiResource('comments', CommentController::class);
