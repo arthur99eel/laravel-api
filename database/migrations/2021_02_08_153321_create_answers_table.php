@@ -19,6 +19,8 @@ class CreateAnswersTable extends Migration
             $table->string('content');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('question_id');
+            $table->unsignedInteger('upvotes')->default(0);
+            $table->unsignedInteger('downvotes')->default(0);
             $table->timestamps();
         });
     }

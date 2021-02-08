@@ -17,6 +17,7 @@ class CreateSpacesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
+            $table->unsignedInteger('admin_id');
             $table->string('image')->default('');
             $table->timestamps();
         });
