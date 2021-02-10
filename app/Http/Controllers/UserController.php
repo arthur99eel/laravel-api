@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -17,6 +18,9 @@ class UserController extends Controller
         $validatedData['password'] = bcrypt($request->password);
         $created_user = User::create($validatedData);
         $accessToken = $created_user->createToken('authToken')->accessToken;
+        if ($accessToken){
+           event(new Registered($created_user));
+        }
         return ["created_user"=>$created_user,'access_token'=>$accessToken];
    }
    
