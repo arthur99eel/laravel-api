@@ -19,7 +19,7 @@ class UserController extends Controller
         $created_user = User::create($validatedData);
         $accessToken = $created_user->createToken('authToken')->accessToken;
         if ($accessToken){
-           event(new Registered($created_user));
+            $created_user->sendApiEmailVerificationNotification();
         }
         return ["created_user"=>$created_user,'access_token'=>$accessToken];
    }

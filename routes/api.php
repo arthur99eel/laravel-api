@@ -30,9 +30,9 @@ use App\Http\Controllers\VerificationController;
 
 
 
-Route::get('/email/resend', [VerificationController::class,'resend'])->middleware(['auth:api', 'throttle:6,1'])->name('verification.resend');
+Route::get('/email/resend', [VerificationController::class,'resend'])->middleware(['auth:api', 'throttle:6,1'])->name('verificationapi.resend');
 
-Route::get('/email/verify/{id}/{hash}', [VerificationController::class,'verify'])->middleware(['auth:api','signed'])->name('verification.verify');
+Route::get('/email/verify/{id}', [VerificationController::class,'verify'])->middleware(['auth:api','signed'])->name('verificationapi.verify');
 
 Route::get('/login',[LoginController::class,'login'])->name('login');
 
